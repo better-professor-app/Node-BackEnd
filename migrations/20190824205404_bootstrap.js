@@ -30,7 +30,7 @@ exports.up = function(knex) {
             tbl.string('grad_program', 255)
                 .notNullable()
             // FK
-            tbl.integer('project_id')
+            tbl.integer('professor_id')
                 .unsigned()
                 .notNullable()
                 .references('id')
@@ -43,9 +43,11 @@ exports.up = function(knex) {
             tbl.string('name', 255)
                 .notNullable()
                 .unique()
+            tbl.string('description', 500)
         })
         .createTable('student_projects', tbl => {
             tbl.increments()
+            tbl.string('notes', 500)
             //FK
             tbl.integer('student_id')
                 .unsigned()
@@ -61,6 +63,7 @@ exports.up = function(knex) {
                 .inTable('projects')
                 .onDelete('RESTRICT')
                 .onUpdate('CASCADE')
+            tbl.unique(['student_id', 'project_id'])
         })
   
 };
