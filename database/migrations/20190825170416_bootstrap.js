@@ -49,6 +49,7 @@ exports.up = function(knex) {
                 .notNullable()
             tbl.boolean('feedback')
                 .notNullable()
+            tbl.integer('grade')
             //FK
             tbl.integer('student_id')
                 .unsigned()
