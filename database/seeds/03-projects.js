@@ -21,18 +21,24 @@ exports.seed = function(knex) {
     {
       name: 'Mailers',
       description: 'Celebrate holidays and special events with a custom greeting, or surprise your clients and customers with an unexpected piece of direct mail.'
-    },    
+    },
+    {
+      name: 'Labs Review',
+      description: 'Provide thorough review of labwork'
+    },
+    {
+      name: 'Letter of Recommendation',
+      description: 'Provide letter of recommendation for student'
+    },
+    {name: 'Teenagers, Texting and Interpersonal Relationships'},
+    {name: 'The Role of Internet Advertisements in Shaping Buying Habits'},
+    {name: 'A Study on Initial Public Offer (IPO) in Indian Market'},
+    {name: 'Women Investor Awerness towards capital market'},
+    {name: 'Portfolio management'},
+    {name: 'Solar Powered Auto-Irrigation System'},
+    {name: 'Password based Circuit Breaker'}
   ]);
 };
 
 
 
-// {name: 'Teenagers, Texting and Interpersonal Relationships'},
-// {name: 'The Role of Internet Advertisements in Shaping Buying Habits'},
-// {name: 'A Study on Initial Public Offer (IPO) in Indian Market'},
-// {name: 'Women Investor Awerness towards capital market'},
-// {name: 'Portfolio management'},
-// {name: 'Solar Powered Auto-Irrigation System'},
-// {name: 'Password based Circuit Breaker'},
-// {name: 'Labs Review'},
-// {name: 'Letter of Recommendation'}

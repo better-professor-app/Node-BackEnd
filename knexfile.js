@@ -3,23 +3,24 @@
 module.exports = {
 
   development: {
+
     client: 'sqlite3',
     connection: {
       filename: './database/better-professor.db3'
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './database/migrations'
+    },
+    seeds: {
+      directory: './database/seeds'
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done) //turns on the FK enforcement
+      }
     }
-  },
-  useNullAsDefault: true,
-  migrations: {
-    directory: './database/migrations'
-  },
-  seeds: {
-    directory: './database/seeds'
-  },
-  // sqlite will not enforce Foreing Keys by default
-  pool: {
-    afterCreate: (conn, done) => {
-      conn.run('PRAGMA foreign_keys = ON', done) //turns on the FK enforcement
-    }
+    
   }
 
   // production: {

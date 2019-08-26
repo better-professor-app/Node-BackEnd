@@ -1,4 +1,3 @@
-
 exports.up = function(knex) {
     return knex.schema
         .createTable('professors', tbl => {
@@ -8,13 +7,14 @@ exports.up = function(knex) {
             tbl.string('email', 255)
                 .notNullable()
                 .unique()
+            tbl.string('password', 255)
+                .notNullable()
+            tbl.string('img', 255)
             tbl.string('username', 255)
                 .notNullable()
                 .unique()
             tbl.string('department', 255)
-                .notNullable()
             tbl.string('college', 255)
-                .notNullable()
         })
         .createTable('students', tbl => {
             tbl.increments()
@@ -23,10 +23,7 @@ exports.up = function(knex) {
             tbl.string('email', 255)
                 .notNullable()
                 .unique()
-            tbl.date('project_deadline')
-                .notNullable()
-            tbl.boolean('feedback_provided')
-                .notNullable()
+            tbl.string('img', 255)
             tbl.string('grad_program', 255)
                 .notNullable()
             // FK
@@ -48,6 +45,10 @@ exports.up = function(knex) {
         .createTable('student_projects', tbl => {
             tbl.increments()
             tbl.string('notes', 500)
+            tbl.date('project_deadline')
+                .notNullable()
+            tbl.boolean('feedback')
+                .notNullable()
             //FK
             tbl.integer('student_id')
                 .unsigned()
