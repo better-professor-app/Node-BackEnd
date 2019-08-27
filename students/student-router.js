@@ -40,6 +40,29 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.post('/', async (req, res) => {
+    loggedInId = req.loggedInId
+    const newStudent = req.body
+
+    newStudent.professor_id = loggedInId
+    console.log(newStudent)
+
+    
+    try {
+        
+        const newStudentIdArray =  await Students.addStudent(newStudent)
+        const [newStudentId] = newStudentIdArray
+
+        const newStudentinDB = await Students.getStudentById(loggedInId, newStudentId)
+
+        res.status(201).json(newStudentinDB)      
+
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to add Student' })
+    }
+
+})
+
 
 
 

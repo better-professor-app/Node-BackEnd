@@ -5,6 +5,20 @@ const router = express.Router();
 const Projects = require('./project-model')
 const Students = require('../students/student-model');
 
+router.get('/', async (req, res) => {
+    loggedInId = req.loggedInId
+
+    try {
+
+        const allProjects = await Projects.getProjects(loggedInId) 
+
+        res.status(200).json(allProjects)      
+
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to get Projects' })
+    }
+})
+
 router.get('/student/:id',  async (req, res) => {
     loggedInId = req.loggedInId
     studentId = req.params.id
@@ -12,7 +26,7 @@ router.get('/student/:id',  async (req, res) => {
     try {
         const myStudent = await Students.getStudentById(loggedInId, studentId)
 
-        if (myStudent.length === 0) {
+        if (!myStudent) {
             res.status(404).json({ message: `No Student With Id: ${studentId}`})
         } 
         else {

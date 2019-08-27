@@ -2,7 +2,8 @@ const db = require('../database/db-config')
 
 module.exports = {
     getStudents,
-    getStudentById
+    getStudentById,
+    addStudent
 }
 
 
@@ -18,4 +19,14 @@ function getStudentById(professorID, studentId) {
         .where('professor_id', professorID)
         .where('id', studentId)
         .first()
+}
+
+function addStudent(newStudent) {
+
+    return db('students')
+        .insert(newStudent)
+        // .then(ids => {
+        //     const [id] = ids;
+        //     return getStudentById(id);
+        //   });
 }

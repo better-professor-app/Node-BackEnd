@@ -1,10 +1,25 @@
 const db = require('../database/db-config')
 
 module.exports = {
-    getProjectByStudent
+    getProjectByStudent,
+    getProjects
 }
 
+function getProjects(professor_id) {
 
+    /*
+    select sp.student_id, sp.project_id, sp.project_deadline, sp.feedback, sp.notes, s.professor_id
+    from [student_projects] sp
+    join [students] s
+        on sp.student_id = s.id
+        where s.professor_id = 1
+    */
+
+   return db('student_projects as sp')
+        .innerJoin('students as s', 'sp.student_id','s.id')
+        .select('sp.student_id', 'sp.project_id', 'sp.project_deadline', 'sp.feedback', 'sp.notes')
+        .where('s.professor_id', professor_id)
+}
 function getProjectByStudent(id) {
 
     /*
