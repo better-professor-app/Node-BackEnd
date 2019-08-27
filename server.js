@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const helmet = require('helmet');
 
 //routers
@@ -13,6 +14,7 @@ const authenticate = require('./auth/authenticate-middleware')
 const server = express();
 
 server.use(helmet());
+server.use(cors());
 server.use(express.json());
 
 server.use('/api/students', authenticate, studentRouter)

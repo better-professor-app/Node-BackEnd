@@ -17,4 +17,5 @@ function getStudentById(professorID, studentId) {
         .select('id','name','email','img','grad_program')
         .where('professor_id', professorID)
         .where('id', studentId)
+        .first()
 }

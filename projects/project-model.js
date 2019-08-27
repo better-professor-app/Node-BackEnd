@@ -17,6 +17,6 @@ function getProjectByStudent(id) {
 
     return db('student_projects as sp')
         .innerJoin('projects as p', 'sp.project_id','p.id')
-        .select('sp.project_id', 'p.name', 'sp.notes', 'sp.project_deadline', 'sp.feedback', 'sp.grade')
+        .select('sp.project_id', 'p.name', 'p.description', 'sp.notes', 'sp.project_deadline', 'sp.feedback', 'sp.grade')
         .where('sp.student_id', id)
 }
