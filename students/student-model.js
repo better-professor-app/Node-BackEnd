@@ -27,10 +27,6 @@ function addStudent(newStudent) {
 
     return db('students')
         .insert(newStudent)
-        // .then(ids => {
-        //     const [id] = ids;
-        //     return getStudentById(id);
-        //   });
 }
 
 function updateStudent(changes, studentId) {
