@@ -2,7 +2,9 @@ const db = require('../database/db-config')
 
 module.exports = {
     getProjectByStudent,
-    getProjects
+    getProjects,
+    addProject,
+    addProjectToStudent
 }
 
 function getProjects(professor_id) {
@@ -34,4 +36,14 @@ function getProjectByStudent(id) {
         .innerJoin('projects as p', 'sp.project_id','p.id')
         .select('sp.project_id', 'p.name', 'p.description', 'sp.notes', 'sp.project_deadline', 'sp.feedback', 'sp.grade')
         .where('sp.student_id', id)
+}
+
+function addProject(newProject) {
+    return db('projects')
+        .insert(newProject)
+}   
+
+function addProjectToStudent(info) {
+    return db('student_projects')
+        .insert(info)
 }

@@ -47,6 +47,40 @@ router.get('/student/:id',  async (req, res) => {
 
 })
 
+router.post('/', async (req, res) => {
+    const newProject = req.body
+
+    try {
+        
+        const newProjectIdArray =  await Projects.addProject(newProject)
+        const [newProjectId] = newProjectIdArray
+
+        res.status(201).json({ message: `Successful!`, project_id: newProjectId})      
+
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to add Project' })
+    }
+})
+
+router.post('/student/:id', async (req, res) => {
+    loggedInId = req.loggedInId
+    const studentId = req.params.id
+    const info = req.body
+
+    info.student_id = studentId
+
+    try {
+        
+        const newInfoArray =  await Projects.addProjectToStudent(info)
+
+        res.status(201).json({ message: `Successful!`, student_projectsID: newInfoArray})      
+
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to add Project' })
+    }
+
+
+})
 
 
 
