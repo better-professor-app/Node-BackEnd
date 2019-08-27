@@ -63,6 +63,24 @@ router.post('/', async (req, res) => {
 
 })
 
+router.put('/:id', async (req, res) => {
+    loggedInId = req.loggedInId
+    const studentId = req.params.id
+    const newStudentInfo = req.body
+
+    try {
+        const student = await Students.getStudentById(loggedInId, studentId);
+    
+        if (student) {
+          const updatedStudent = await Students.updateStudent(newStudentInfo, studentId);
+          res.json(updatedStudent);
+        } else {
+          res.status(404).json({ message: 'Could not find student with given id' });
+        }
+      } catch (err) {
+        res.status(500).json({ message: 'Failed to update Student' });
+      }
+})
 
 
 

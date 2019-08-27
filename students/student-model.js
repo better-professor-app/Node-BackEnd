@@ -3,14 +3,15 @@ const db = require('../database/db-config')
 module.exports = {
     getStudents,
     getStudentById,
-    addStudent
+    addStudent,
+    updateStudent
 }
 
 
-function getStudents(id) {
+function getStudents(loggedInId) {
     return db('students')
         .select('id','name','email','img','grad_program')
-        .where('professor_id', id)
+        .where('professor_id', loggedInId)
 }
 
 function getStudentById(professorID, studentId) {
@@ -29,4 +30,10 @@ function addStudent(newStudent) {
         //     const [id] = ids;
         //     return getStudentById(id);
         //   });
+}
+
+function updateStudent(changes, studentId) {
+    return db('students')
+        .where('id', studentId)
+        .update(changes)
 }
