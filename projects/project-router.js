@@ -82,6 +82,42 @@ router.post('/student/:id', async (req, res) => {
 
 })
 
+router.put('/:id', async (req, res) => {
+    loggedInId = req.loggedInId
+    const studentId = req.params.id
+    const newStudentInfo = req.body
+
+    try {
+        const student = await Students.getStudentById(loggedInId, studentId);
+    
+        if (student) {
+          const updatedStudent = await Students.updateStudent(newStudentInfo, studentId);
+          res.json(updatedStudent);
+        } else {
+          res.status(404).json({ message: 'Could not find student with given id' });
+        }
+      } catch (err) {
+        res.status(500).json({ message: 'Failed to update Student' });
+      }
+})
+
+router.delete('/:id', async (req, res) => {
+    const projectId = req.params.id
+
+    try {
+        const deleted = await Projects.removeProject(projectId);
+    
+        if (deleted) {
+          res.json({ removed: deleted });
+        } else {
+          res.status(404).json({ message: 'Could not find Project with given id' });
+        }
+      } catch (err) {
+        res.status(500).json({ message: 'Failed to delete Student' });
+      }
+
+})
+
 
 
 module.exports = router

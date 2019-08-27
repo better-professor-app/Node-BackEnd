@@ -4,7 +4,8 @@ module.exports = {
     getStudents,
     getStudentById,
     addStudent,
-    updateStudent
+    updateStudent,
+    deleteStudent
 }
 
 
@@ -36,4 +37,10 @@ function updateStudent(changes, studentId) {
     return db('students')
         .where('id', studentId)
         .update(changes)
+}
+
+function deleteStudent(studentId) {
+    return db('students')
+        .where('id', studentId)
+        .del()
 }

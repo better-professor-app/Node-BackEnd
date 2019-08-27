@@ -67,11 +67,28 @@ exports.up = function(knex) {
                 .onUpdate('CASCADE')
             tbl.unique(['student_id', 'project_id'])
         })
+        .createTable('reminders', tbl => {
+            tbl.increments()
+            tbl.string('message', 500)
+                .notNullable()
+            tbl.timestamp('created_at')
+                .defaultTo(knex.fn.now())
+            //Fk
+            tbl.integer('professor_id')
+                .unsigned()
+                .notNullable()
+                .references('id')
+                .inTable('professors')
+                .onDelete('RESTRICT')
+                .onUpdate('CASCADE')
+
+        })
   
 };
 
 exports.down = function(knex) {
     return knex.schema
+        .dropTableIfExists('reminders')
         .dropTableIfExists('student_projects')
         .dropTableIfExists('projects')
         .dropTableIfExists('students')

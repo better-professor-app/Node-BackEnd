@@ -4,7 +4,8 @@ module.exports = {
     getProjectByStudent,
     getProjects,
     addProject,
-    addProjectToStudent
+    addProjectToStudent,
+    removeProject
 }
 
 function getProjects(professor_id) {
@@ -19,9 +20,11 @@ function getProjects(professor_id) {
 
    return db('student_projects as sp')
         .innerJoin('students as s', 'sp.student_id','s.id')
-        .select('sp.student_id', 'sp.project_id', 'sp.project_deadline', 'sp.feedback', 'sp.notes')
+        .innerJoin('projects as p', 'sp.project_id', 'p.id')
+        .select('sp.student_id', 'sp.project_id', 'p.name', 'sp.project_deadline', 'sp.feedback', 'sp.notes')
         .where('s.professor_id', professor_id)
 }
+
 function getProjectByStudent(id) {
 
     /*
@@ -46,4 +49,10 @@ function addProject(newProject) {
 function addProjectToStudent(info) {
     return db('student_projects')
         .insert(info)
+}
+
+function removeProject(projectId) {
+    return db('student_projects')
+        .where('project_id', projectId)
+        .del()
 }
