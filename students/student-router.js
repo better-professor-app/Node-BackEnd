@@ -45,12 +45,13 @@ router.post('/', async (req, res) => {
     const newStudent = req.body
 
     newStudent.professor_id = loggedInId
-    console.log(newStudent)
+    // console.log(newStudent)
 
     
     try {
         
         const newStudentIdArray =  await Students.addStudent(newStudent)
+        console.log(newStudentIdArray)
         const [newStudentId] = newStudentIdArray
 
         const newStudentinDB = await Students.getStudentById(loggedInId, newStudentId)
