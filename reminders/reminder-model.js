@@ -27,6 +27,7 @@ function addReminder(newReminder) {
 
     return db('reminders')
         .insert(newReminder)
+        .returning('id')
 }
 
 function updateReminder(changes, reminderId) {

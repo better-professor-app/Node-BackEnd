@@ -58,6 +58,7 @@ function addProject(newProject) {
 function addProjectToStudent(info) {
     return db('student_projects')
         .insert(info)
+        .returning('id')
 }
 
 function removeProject(projectId) {
