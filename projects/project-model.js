@@ -53,6 +53,7 @@ function getProjectsById(projectId) {
 function addProject(newProject) {
     return db('projects')
         .insert(newProject)
+        .returning('id')
 }   
 
 function addProjectToStudent(info) {
