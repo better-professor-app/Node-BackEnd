@@ -11,7 +11,7 @@ module.exports = {
 
 function getReminders(loggedInId) {
     return db('reminders')
-        .select('id','message','created_at')
+        .select('id','message','created_at','time', 'date')
         .where('professor_id', loggedInId)
 }
 

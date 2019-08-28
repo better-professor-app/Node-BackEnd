@@ -23,6 +23,9 @@ router.post('/', async (req, res) => {
     loggedInId = req.loggedInId
     const newReminder = req.body
 
+    const deadline = new Date(newReminder.date)
+    newReminder.date = deadline
+
     newReminder.professor_id = loggedInId
     console.log(newReminder)
 
