@@ -53,9 +53,9 @@ router.post('/', async (req, res) => {
         const newStudentIdArray =  await Students.addStudent(newStudent)
         const [newStudentId] = newStudentIdArray
 
-        const newStudentinDB = await Students.getStudentById(loggedInId, newStudentId)
+        // const newStudentinDB = await Students.getStudentById(loggedInId, newStudentId)
 
-        res.status(201).json(newStudentinDB)      
+        res.status(201).json(newStudentIdArray)      
 
     } catch (err) {
         res.status(500).json({ message: 'Failed to add Student' })
