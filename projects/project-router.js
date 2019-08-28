@@ -78,7 +78,7 @@ router.post('/student/:id', async (req, res) => {
         const [newProjectId] = newProjectIdArray
 
         const infoToAdd = {
-            project_deadline,
+            project_deadline: new Date(project_deadline),
             feedback,
             grade,
             student_id: studentId,
