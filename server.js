@@ -22,7 +22,7 @@ const swaggerDefinition = {
       version: '1.0.0',
       description: 'Endpoints to access All Resources',
     },
-    host: 'localhost:5500',
+    host: 'https://better-prof-app.herokuapp.com',
     basePath: '/api',
     securityDefinitions: {
         JWT: {
@@ -36,7 +36,8 @@ const swaggerDefinition = {
 
 const options = {
 swaggerDefinition,
-apis: ['./*-router.js'],
+apis: ['./professors/*.js'],
+//  apis: ['/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options)
