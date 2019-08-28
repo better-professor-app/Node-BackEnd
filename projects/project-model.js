@@ -5,7 +5,10 @@ module.exports = {
     getProjects,
     addProject,
     addProjectToStudent,
-    removeProject
+    removeProject,
+    upDateProject,
+    updateStudentProjects,
+    getProjectsById
 }
 
 function getProjects(professor_id) {
@@ -41,6 +44,12 @@ function getProjectByStudent(id) {
         .where('sp.student_id', id)
 }
 
+function getProjectsById(projectId) {
+    return db('projects')
+    .where('id', projectId)
+    .first()
+}
+
 function addProject(newProject) {
     return db('projects')
         .insert(newProject)
@@ -55,4 +64,16 @@ function removeProject(projectId) {
     return db('student_projects')
         .where('project_id', projectId)
         .del()
+}
+
+function upDateProject(changes, projectId) {
+    return db('projects')
+        .where('id', projectId)
+        .update(changes)
+}
+
+function updateStudentProjects(changes, projectId) {
+    return db('student_projects')
+        .where('project_id', projectId)
+        .update(changes)
 }

@@ -21,6 +21,32 @@ router.post('/register', (req, res) => {
     });
 })
 
+/**
+ * @swagger
+ * tags:
+ *  - name: "Auth"
+      description: "Access to Petstore orders"
+    paths:
+ *  /login:
+ *   post:
+ *     description: Login to the application
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: Username to use for login.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: password
+ *         description: User's password.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: login
+ */
 
 router.post('/login', (req, res) => {
     let { username, password } = req.body

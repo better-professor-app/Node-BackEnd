@@ -65,41 +65,77 @@ router.post('/', async (req, res) => {
 router.post('/student/:id', async (req, res) => {
     loggedInId = req.loggedInId
     const studentId = req.params.id
-    const info = req.body
-
-    info.student_id = studentId
+    const { name, description, project_deadline, feedback, grade} = req.body
+    
+    const newProject = {
+        name,
+        description
+    }
 
     try {
         
-        const newInfoArray =  await Projects.addProjectToStudent(info)
+        const newProjectIdArray =  await Projects.addProject(newProject)
+        const [newProjectId] = newProjectIdArray
 
-        res.status(201).json({ message: `Successful!`, student_projectsID: newInfoArray})      
+        const infoToAdd = {
+            project_deadline,
+            feedback,
+            grade,
+            student_id: studentId,
+            project_id: newProjectId
+        }
+
+        const newInfoArray =  await Projects.addProjectToStudent(infoToAdd)
+
+        res.status(201).json({ message: `Project Added Successful!`, projectId: newProjectId })
 
     } catch (err) {
         res.status(500).json({ message: 'Failed to add Project' })
     }
-
-
 })
 
 router.put('/:id', async (req, res) => {
     loggedInId = req.loggedInId
-    const studentId = req.params.id
-    const newStudentInfo = req.body
-
-    try {
-        const student = await Students.getStudentById(loggedInId, studentId);
+    const projectID = req.params.id
+    const { name, description, project_deadline, feedback, grade} = req.body
     
-        if (student) {
-          const updatedStudent = await Students.updateStudent(newStudentInfo, studentId);
-          res.json(updatedStudent);
-        } else {
-          res.status(404).json({ message: 'Could not find student with given id' });
-        }
-      } catch (err) {
-        res.status(500).json({ message: 'Failed to update Student' });
-      }
+    const changes_1 = {
+        name, 
+        description
+    }
+
+    const changes_2 = {
+        project_deadline,
+        feedback,
+        grade,
+    }
+
+    if(name || description) {
+        try {
+            const project = await Projects.getProjectsById(projectID)
+
+            if(project) {
+                const updatedProject = await Projects.upDateProject(changes_1, projectID)
+
+                if(project_deadline || feedback || grade) {
+                    try {
+                        const updatedStudenProjects = await Projects.updateStudentProjects(changes_2, projectID)
+                        res.status(200).json({ message: 'Update Success!!' })
+                    }
+                    catch (err) {
+                        res.status(500).json({ message: 'Failed to update Project' });
+                      }
+                }
+                
+            } else {
+                res.status(404).json({ message: 'Could not find project with given id' });
+              }
+        } catch (err) {
+            res.status(500).json({ message: 'Failed to update Project' });
+          }
+    } 
 })
+
 
 router.delete('/:id', async (req, res) => {
     const projectId = req.params.id
