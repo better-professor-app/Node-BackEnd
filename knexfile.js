@@ -27,20 +27,18 @@ module.exports = {
       afterCreate: (conn, done) => {
         conn.run('PRAGMA foreign_keys = ON', done) //turns on the FK enforcement
       }
+    }  
+  },
+  
+  production: {
+    client: 'pg',
+    connection: productionDBConnection,
+    migrations: {
+      directory: './database/migrations'
     },
-    
-    production: {
-      client: 'pg',
-      connection: productionDBConnection,
-      migrations: {
-        directory: './database/migrations'
-      },
-      seeds: {
-        directory: './database/seeds'
-      },
-    }
-    
+    seeds: {
+      directory: './database/seeds'
+    },
   }
-
 
 };
