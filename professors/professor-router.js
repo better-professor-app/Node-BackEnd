@@ -6,6 +6,45 @@ const Professors = require('./professor-model')
 const generateToken = require('../token/gen-token')
 
 
+/**
+ * @swagger
+ * /api/professors/register:
+ *   post:
+ *     summary: Endpoint to Register
+ *     description: Register Users - Return New Created Object
+ *     tags:
+ *       - Auth
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: "Data Needed to Register"
+ *         required: true
+ *         schema:
+ *           type: ojbect
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ *             username:
+ *               type: string
+ *             password:
+ *               type: string
+ *               format: password
+ *     responses:
+ *       201:
+ *         description: Successful Registration
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Professor'
+ *       500:
+ *         description: User Already exist
+ */
+
 router.post('/register', (req, res) => {
     let regProfessor = req.body
     
@@ -39,7 +78,13 @@ router.post('/register', (req, res) => {
  *         description: "User Credentials that Need to Login"
  *         required: true
  *         schema:
- *           $ref: '#/definitions/User'
+ *           type: ojbect
+ *           properties:
+ *             username:
+ *               type: string
+ *             password:
+ *               type: string
+ *               format: password
  *     responses:
  *       200:
  *         description: User Found and Logged in Successfully

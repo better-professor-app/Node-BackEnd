@@ -1,16 +1,30 @@
- /**
+  /**
      * @swagger
      * definition:
-     *   User:
+     *   Professor:
      *     properties:
-     *       username:
+     *       id:
+     *         type: integer
+     *       name:
+     *         type: string
+     *       email:
      *         type: string
      *       password:
      *         type: string
      *         format: password
+     *       username:
+     *         type: string            
+     *       department:
+     *         type: string              
+     *       college: 
+     *         type: string               
+     *       img:
+     *         type: string                
      *       required:
-     *         - username
+     *         - name
      *         - password
+     *         - email
+     *         - username
      */
 
 exports.seed = function(knex) {
