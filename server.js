@@ -32,12 +32,12 @@ const swaggerDefinition = {
             in: 'header',
       },
     },
-  };
+  }
 
 const options = {
 swaggerDefinition,
-apis: ['./professors/*.js'],
-//  apis: ['/*.js'],
+// apis: ['/**./*.js']
+apis: ['./professors/*.js', './database/seeds/*.js']
 };
 
 const swaggerSpec = swaggerJSDoc(options)

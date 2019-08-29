@@ -1,3 +1,17 @@
+ /**
+     * @swagger
+     * definition:
+     *   User:
+     *     properties:
+     *       username:
+     *         type: string
+     *       password:
+     *         type: string
+     *         format: password
+     *       required:
+     *         - username
+     *         - password
+     */
 
 exports.seed = function(knex) {
   return knex('professors').insert([

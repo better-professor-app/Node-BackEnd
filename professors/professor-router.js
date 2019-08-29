@@ -23,29 +23,35 @@ router.post('/register', (req, res) => {
 
 /**
  * @swagger
- * tags:
- *  - name: "Auth"
-      description: "Access to Petstore orders"
-    paths:
- *  /login:
+ * /api/professors/login:
  *   post:
- *     description: Login to the application
+ *     summary: Endpoint to login all Users
+ *     description: Logs in Users - Return Welcome message & token!
+ *     tags:
+ *       - Auth
+ *     consumes:
+ *       - "application/json"
  *     produces:
- *       - application/json
+ *       - "application/json"
  *     parameters:
- *       - name: username
- *         description: Username to use for login.
- *         in: formData
+ *       - in: body
+ *         name: body
+ *         description: "User Credentials that Need to Login"
  *         required: true
- *         type: string
- *       - name: password
- *         description: User's password.
- *         in: formData
- *         required: true
- *         type: string
+ *         schema:
+ *           $ref: '#/definitions/User'
  *     responses:
  *       200:
- *         description: login
+ *         description: User Found and Logged in Successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *             token:
+ *               type: string
+ *       401:
+ *         description: You shall Not Pass!
  */
 
 router.post('/login', (req, res) => {
