@@ -7,6 +7,30 @@ const Projects = require('../projects/project-model')
 // express router
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/students:
+ *   get:
+ *     summary: Get list of Students (Token Required)
+ *     security:
+ *       - JWT: []
+ *     description: Return List of Students
+ *     tags:
+ *       - Students
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     responses:
+ *       200:
+ *         description: Objects of Students
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Student'
+ *       400:
+ *         description: Invalid Token
+ */
+
 router.get('/', async (req, res) => {
 
     loggedInId = req.loggedInId
@@ -19,6 +43,39 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Failed to get Students' })
     }
 })
+
+/**
+ * @swagger
+ * /api/students/{studentID}:
+ *   get:
+ *     summary: Get Student By ID (Token Required)
+ *     security:
+ *       - JWT: []
+ *     description: Returns Student Object w/Projects
+ *     tags:
+ *       - Students
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     parameters:
+ *       - in: path
+ *         name: studentID
+ *         description: "Student that needs to be fetched"
+ *         required: true
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: Objects of Students
+ *         schema:
+ *           $ref: '#/definitions/StudentWithProject'
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *       400:
+ *         description: Invalid Token
+ */
 
 router.get('/:id', async (req, res) => {
     loggedInId = req.loggedInId
@@ -39,6 +96,35 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: 'Failed to get Students' })
     }
 })
+
+/**
+ * @swagger
+ * /api/students:
+ *   post:
+ *     summary: Endpoint to Add Student
+ *     security:
+ *       - JWT: []
+ *     description: Add Student - Returns New Student Ojbect
+ *     tags:
+ *       - Students
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     parameters:
+*       - name: body
+*         in: body
+*         schema:
+*           $ref: '#/definitions/StudentToPost'
+ *     responses:
+ *       201:
+ *         description: Successful Registration
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Student'
+ *       500:
+ *         description: User Already exist
+ */
 
 router.post('/', async (req, res) => {
     loggedInId = req.loggedInId
@@ -64,6 +150,38 @@ router.post('/', async (req, res) => {
 
 })
 
+/**
+ * @swagger
+ * /api/students/{studentID}:
+ *   put:
+ *     summary: Edit Student By ID (Token Required)
+ *     security:
+ *       - JWT: []
+ *     description: Returns Student Object w/Projects
+ *     tags:
+ *       - Students
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     parameters:
+ *       - in: path
+ *         name: studentID
+ *         description: "Student that needs to be fetched"
+ *         required: true
+ *         type: integer
+ *       - in: body
+ *         schema:
+*           $ref: '#/definitions/StudentToPost'
+ *     responses:
+ *       200:
+ *         description: Number of Rows Effected 
+ *         schema:
+ *           type: integer
+ *       400:
+ *         description: Invalid Token
+ */
+
 router.put('/:id', async (req, res) => {
     loggedInId = req.loggedInId
     const studentId = req.params.id
@@ -82,6 +200,38 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ message: 'Failed to update Student' });
       }
 })
+
+/**
+ * @swagger
+ * /api/students/{studentID}:
+ *   delete:
+ *     summary: Delete Student By ID (Token Required)
+ *     security:
+ *       - JWT: []
+ *     description: Returns Student Object w/Projects
+ *     tags:
+ *       - Students
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     parameters:
+ *       - in: path
+ *         name: studentID
+ *         description: "Student that needs to be fetched"
+ *         required: true
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: Number of Records Deleted 
+ *         schema:
+ *           type: object
+ *           properties:
+ *             removed: 
+ *                type: integer
+ *       400:
+ *         description: Invalid Token
+ */
 
 router.delete('/:id', async (req, res) => {
     const studentId = req.params.id

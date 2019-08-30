@@ -1,3 +1,70 @@
+  /**
+     * @swagger
+     * definition:
+     *   Student:
+     *     properties:
+     *       id:
+     *         type: integer
+     *       name:
+     *         type: string
+     *       email:
+     *         type: string          
+     *       grad_program:
+     *         type: string                            
+     *       img:
+     *         type: string                
+     *       required:
+     *         - name
+     *         - email
+     * @swagger
+     *  definition:  
+     *    StudentWithProject:
+     *      properties:
+     *       id:
+     *         type: integer
+     *       name:
+     *         type: string
+     *       email:
+     *         type: string          
+     *       grad_program:
+     *         type: string                            
+     *       img:
+     *         type: string
+     *       projects:
+     *         type: array
+     *         items:
+     *           type: object
+     *           properties:
+     *             project_id:
+     *               type: integer
+     *             name:
+     *               type: string
+     *             description:
+     *               type: string
+     *             notes:
+     *               type: string
+     *             project_deadline:
+     *               type: string
+     *               format: date
+     *             feedback:
+     *               type: boolean
+     *             grade:
+     *               type: integer
+     * @swagger
+     *  definition:
+     *    StudentToPost:
+     *      properties:
+     *        name:
+     *          type: string
+     *        email:
+     *          type: string       
+     *        grad_program:
+     *          type: string                                         
+     *        required:
+     *          - name
+     *          - email
+     *          - grad_program
+     */
 
 exports.seed = function(knex) {
   return knex('students').insert([

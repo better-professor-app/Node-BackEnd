@@ -22,22 +22,24 @@ const swaggerDefinition = {
       version: '1.0.0',
       description: 'Endpoints to access All Resources',
     },
-    host: 'https://better-prof-app.herokuapp.com',
-    basePath: '/api',
+    host: 'better-prof-app.herokuapp.com',
+    basePath: '/',
     securityDefinitions: {
         JWT: {
             type: 'apiKey',
-            name: 'Authorization',
+            name: 'authorization',
             description: 'JWT authorization of an API',
+            scheme: 'bearer',
             in: 'header',
       },
     },
+    schemes: ['https']
   }
 
 const options = {
 swaggerDefinition,
 // apis: ['/**./*.js']
-apis: ['./professors/*.js', './database/seeds/*.js']
+apis: ['./professors/*.js', './students/*.js', './database/**/*.js']
 };
 
 const swaggerSpec = swaggerJSDoc(options)
