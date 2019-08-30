@@ -5,6 +5,30 @@ const router = express.Router();
 const Projects = require('./project-model')
 const Students = require('../students/student-model');
 
+/**
+ * @swagger
+ * /api/projects:
+ *   get:
+ *     summary: Get list of Projects (Token Required)
+ *     security:
+ *       - JWT: []
+ *     description: Return List of Projects w/Logged In Professor
+ *     tags:
+ *       - Projects
+ *     consumes:
+ *       - "application/json"
+ *     produces:
+ *       - "application/json"
+ *     responses:
+ *       200:
+ *         description: Objects of Students
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/ProjectsWithStudentId'
+ *       401:
+ *         description: Invalid Token
+ */
+
 router.get('/', async (req, res) => {
     loggedInId = req.loggedInId
 

@@ -5,6 +5,9 @@ const router = express.Router();
 const Professors = require('./professor-model')
 const generateToken = require('../token/gen-token')
 
+// Middleware
+const checkEmpty = require('../Middleware/checkEmptyString')
+
 
 /**
  * @swagger

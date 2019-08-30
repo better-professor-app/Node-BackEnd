@@ -12,6 +12,7 @@ const ReminderRouter = require('./reminders/reminder-router')
 
 // middleware
 const authenticate = require('./auth/authenticate-middleware')
+const checkEmpty = require('./Middleware/checkEmptyString')
 
 //express
 const server = express();
@@ -39,7 +40,7 @@ const swaggerDefinition = {
 const options = {
 swaggerDefinition,
 // apis: ['/**./*.js']
-apis: ['./professors/*.js', './students/*.js', './database/**/*.js']
+apis: ['./professors/*.js', './students/*.js', './projects/*.js', './database/**/*.js']
 };
 
 const swaggerSpec = swaggerJSDoc(options)
@@ -48,10 +49,10 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use('/api/students', authenticate, studentRouter)
-server.use('/api/professors', professorRouter)
-server.use('/api/projects', authenticate, ProjectsRouter)
-server.use('/api/reminders', authenticate, ReminderRouter)
+server.use('/api/students', authenticate, checkEmpty, studentRouter)
+server.use('/api/professors', checkEmpty, professorRouter)
+server.use('/api/projects', authenticate, checkEmpty, ProjectsRouter)
+server.use('/api/reminders', authenticate, checkEmpty, ReminderRouter)
 
 server.get('/swagger.json', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
