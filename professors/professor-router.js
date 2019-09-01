@@ -5,48 +5,8 @@ const router = express.Router();
 const Professors = require('./professor-model')
 const generateToken = require('../token/gen-token')
 
-// Middleware
-const checkEmpty = require('../Middleware/checkEmptyString')
+const authenticate = require('../auth/authenticate-middleware')
 
-
-/**
- * @swagger
- * /api/professors/register:
- *   post:
- *     summary: Endpoint to Register
- *     description: Register Users - Return New Created Object
- *     tags:
- *       - Auth
- *     consumes:
- *       - "application/json"
- *     produces:
- *       - "application/json"
- *     parameters:
- *       - in: body
- *         name: body
- *         description: "Data Needed to Register"
- *         required: true
- *         schema:
- *           type: ojbect
- *           properties:
- *             name:
- *               type: string
- *             email:
- *               type: string
- *             username:
- *               type: string
- *             password:
- *               type: string
- *               format: password
- *     responses:
- *       201:
- *         description: Successful Registration
- *         schema:
- *           type: object
- *           $ref: '#/definitions/Professor'
- *       500:
- *         description: User Already exist
- */
 
 router.post('/register', (req, res) => {
     let regProfessor = req.body
@@ -62,45 +22,6 @@ router.post('/register', (req, res) => {
         res.status(500).json(error);
     });
 })
-
-/**
- * @swagger
- * /api/professors/login:
- *   post:
- *     summary: Endpoint to login all Users
- *     description: Logs in Users - Return Welcome message & token!
- *     tags:
- *       - Auth
- *     consumes:
- *       - "application/json"
- *     produces:
- *       - "application/json"
- *     parameters:
- *       - in: body
- *         name: body
- *         description: "User Credentials that Need to Login"
- *         required: true
- *         schema:
- *           type: ojbect
- *           properties:
- *             username:
- *               type: string
- *             password:
- *               type: string
- *               format: password
- *     responses:
- *       200:
- *         description: User Found and Logged in Successfully
- *         schema:
- *           type: object
- *           properties:
- *             message:
- *               type: string
- *             token:
- *               type: string
- *       401:
- *         description: You shall Not Pass!
- */
 
 router.post('/login', (req, res) => {
     let { username, password } = req.body
@@ -124,6 +45,22 @@ router.post('/login', (req, res) => {
       res.status(500).json(error);
     })
 })
+
+router.get('/', authenticate,  async (req, res) => {
+  loggedInId = req.loggedInId
+
+  try {
+    const professorInfo = await Professors.findById(loggedInId)
+
+    res.status(200).json(professorInfo)
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to get Professor' })
+}
+
+
+})
+
+
 
 
 module.exports = router

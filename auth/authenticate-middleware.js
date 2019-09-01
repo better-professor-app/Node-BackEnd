@@ -6,10 +6,12 @@ module.exports = (req, res, next) => {
 
   const token = req.headers.authorization
 
-   if (token) {        
-
-      jwt.verify(token, secret.jwtSecret, (err, decodedToken) => {
+  
+  if (token) {        
+    
+    jwt.verify(token, secret.jwtSecret, (err, decodedToken) => {
         if(err) {
+            console.log('WTF')
             res.status(401).json({ message: 'Invalid Token' })
         } else {
             req.loggedInId = decodedToken.subject

@@ -1,0 +1,99 @@
+paths:
+ /api/professors/register:
+   post:
+     summary: Endpoint to Register
+     description: Register Users - Return New Created Object
+     tags:
+       - Auth
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     parameters:
+       - in: body
+         name: body
+         description: "Data Needed to Register"
+         required: true
+         schema:
+           type: ojbect
+           properties:
+             name:
+               type: string
+             email:
+               type: string
+             username:
+               type: string
+             password:
+               type: string
+               format: password
+     responses:
+       201:
+         description: Successful Registration
+         schema:
+           type: object
+           $ref: '#/definitions/Professor'
+       500:
+          description: User Already exist
+
+ /api/professors/login:
+   post:
+     summary: Endpoint to login all Users
+     description: Logs in Users - Return Welcome message & token!
+     tags:
+       - Auth
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     parameters:
+       - in: body
+         name: body
+         description: "User Credentials that Need to Login"
+         required: true
+         schema:
+           type: ojbect
+           properties:
+             username:
+               type: string
+             password:
+               type: string
+               format: password
+     responses:
+       200:
+         description: User Found and Logged in Successfully
+         schema:
+           type: object
+           properties:
+             message:
+               type: string
+             token:
+               type: string
+       401:
+         description: You shall Not Pass!
+
+definition:
+  Professor:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+        format: password
+      username:
+        type: string            
+      department:
+        type: string              
+      college: 
+        type: string               
+      img:
+        type: string                
+      required:
+        - name
+        - password
+        - email
+        - username
+

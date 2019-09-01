@@ -1,32 +1,3 @@
-  /**
-     * @swagger
-     * definition:
-     *   Professor:
-     *     properties:
-     *       id:
-     *         type: integer
-     *       name:
-     *         type: string
-     *       email:
-     *         type: string
-     *       password:
-     *         type: string
-     *         format: password
-     *       username:
-     *         type: string            
-     *       department:
-     *         type: string              
-     *       college: 
-     *         type: string               
-     *       img:
-     *         type: string                
-     *       required:
-     *         - name
-     *         - password
-     *         - email
-     *         - username
-     */
-
 exports.seed = function(knex) {
   return knex('professors').insert([
     {

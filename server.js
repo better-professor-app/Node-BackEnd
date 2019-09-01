@@ -40,7 +40,7 @@ const swaggerDefinition = {
 const options = {
 swaggerDefinition,
 // apis: ['/**./*.js']
-apis: ['./professors/*.js', './students/*.js', './projects/*.js', './database/**/*.js']
+apis: ['./yaml-api/*.yaml']
 };
 
 const swaggerSpec = swaggerJSDoc(options)

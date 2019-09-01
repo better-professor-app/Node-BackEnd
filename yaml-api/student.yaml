@@ -1,0 +1,196 @@
+paths:
+ /api/students:
+   get:
+     summary: Get list of Students (Token Required)
+     security:
+       - JWT: []
+     description: Return List of Students
+     tags:
+       - Students
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     responses:
+       200:
+         description: Objects of Students
+         schema:
+           type: object
+           $ref: '#/definitions/Student'
+       400:
+         description: Invalid Token
+
+ /api/students/{studentID}:
+   get:
+     summary: Get Student By ID (Token Required)
+     security:
+       - JWT: []
+     description: Returns Student Object w/Projects
+     tags:
+       - Students
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     parameters:
+       - in: path
+         name: studentID
+         description: "Student that needs to be fetched"
+         required: true
+         type: integer
+     responses:
+       200:
+         description: Objects of Students
+         schema:
+           $ref: '#/definitions/StudentWithProject'
+           type: object
+           properties:
+             name:
+               type: string
+       400:
+         description: Invalid Token
+
+   post:
+     summary: Endpoint to Add Student
+     security:
+       - JWT: []
+     description: Add Student - Returns New Student Ojbect
+     tags:
+       - Students
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     parameters:
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/StudentToPost'
+     responses:
+       201:
+         description: Successful Registration
+         schema:
+           type: object
+           $ref: '#/definitions/Student'
+       500:
+         description: User Already exist
+
+   put:
+     summary: Edit Student By ID (Token Required)
+     security:
+       - JWT: []
+     description: Returns Student Object w/Projects
+     tags:
+       - Students
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     parameters:
+       - in: path
+         name: studentID
+         description: "Student that needs to be fetched"
+         required: true
+         type: integer
+       - in: body
+         schema:
+          $ref: '#/definitions/StudentToPost'
+     responses:
+       200:
+         description: Number of Rows Effected 
+         schema:
+           type: integer
+       400:
+         description: Invalid Token
+
+   delete:
+     summary: Delete Student By ID (Token Required)
+     security:
+       - JWT: []
+     description: Returns Student Object w/Projects
+     tags:
+       - Students
+     consumes:
+       - "application/json"
+     produces:
+       - "application/json"
+     parameters:
+       - in: path
+         name: studentID
+         description: "Student that needs to be fetched"
+         required: true
+         type: integer
+     responses:
+       200:
+         description: Number of Records Deleted 
+         schema:
+           type: object
+           properties:
+             removed: 
+                type: integer
+       400:
+         description: Invalid Token
+
+
+definition:
+  Student:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string          
+      grad_program:
+        type: string                            
+      img:
+        type: string                
+      required:
+        - name
+        - email
+ 
+  StudentWithProject:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string          
+      grad_program:
+        type: string                            
+      img:
+        type: string
+      projects:
+        type: array
+        items:
+          type: object
+          properties:
+            project_id:
+              type: integer
+            name:
+              type: string
+            description:
+              type: string
+            notes:
+              type: string
+            project_deadline:
+              type: string
+              format: date
+            feedback:
+              type: boolean
+            grade:
+              type: integer
+
+  StudentToPost:
+    properties:
+      name:
+        type: string
+      email:
+        type: string       
+      grad_program:
+        type: string                                         
+      required:
+        - name
+        - email
+        - grad_program

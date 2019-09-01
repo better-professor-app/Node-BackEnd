@@ -1,0 +1,61 @@
+paths:
+  /api/projects:
+    get:
+      summary: Get list of Projects (Token Required)
+      security:
+        - JWT: []
+      description: Return List of Projects w/Logged In Professor
+      tags:
+        - Projects
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: Objects of Students
+          schema:
+            type: object
+            $ref: '#/definitions/ProjectsWithStudentId'
+        401:
+          description: Invalid Token
+
+definition:
+  Projects:
+    properties:
+      project_id:
+        type: integer
+      name:
+        type: string          
+      project_deadline:
+        type: string
+        format: date                            
+      feedback:
+        type: boolean 
+      notes:
+        type: string 
+      description:
+        type: string 
+      grade:
+        type: integer                  
+      required:
+        - project_id
+
+  ProjectsWithStudentId:
+    properties:
+      student_id:
+        type: integer
+      project_id:
+        type: integer
+      name:
+        type: string          
+      project_deadline:
+        type: string
+        format: date                            
+      feedback:
+        type: boolean 
+      notes:
+        type: string                
+      required:
+        - student_id
+        - project_id

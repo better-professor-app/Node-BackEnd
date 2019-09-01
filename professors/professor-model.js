@@ -2,7 +2,8 @@ const db = require('../database/db-config');
 
 module.exports = {
   add,
-  findBy
+  findBy,
+  findById
 }
 
 function add(professor) {
