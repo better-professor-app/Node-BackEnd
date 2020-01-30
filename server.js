@@ -35,7 +35,7 @@ const swaggerDefinition = {
       },
     },
     schemes: ['https']
-  }
+}
 
 const options = {
 swaggerDefinition,

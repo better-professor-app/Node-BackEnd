@@ -9,7 +9,7 @@ module.exports = function generateToken(professor) {
     };
 
     const options = {
-      expiresIn: '1d',
+      expiresIn: '7d',
     };
 
     return jwt.sign(payload, secret.jwtSecret, options)
