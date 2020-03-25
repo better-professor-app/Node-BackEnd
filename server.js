@@ -59,6 +59,14 @@ server.get('/swagger.json', function(req, res) {
     res.send(swaggerSpec);
 })
 
+server.get('/', (req, res) => {
+  res.send('Server is Configured Properly :)')
+})
+
+server.post('/new-order', (req, res) => {
+  console.log(req.body, 'data from webhook call')
+})
+
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 
