@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const axios = require('axios')
 
 //routers
 const studentRouter = require('./students/student-router')
@@ -65,6 +66,17 @@ server.get('/', (req, res) => {
 
 server.post('/new-order', (req, res) => {
   console.log(req.body, 'data from webhook call')
+
+  // axios.post("https://hooks.slack.com/services/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", req.body)
+  //   .then(res2 => {
+  //     // console.log(res2, 'res from slack webhook')
+  //     res.status(201).json({message: 'test'})
+  //   })
+  //   .catch(err => {
+  //     // console.log(err, 'err response')
+  //     res.status(400).json({message: err.response.statusText})
+  //   })
+  res.status(200).json({message: "success"})
 })
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
