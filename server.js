@@ -65,7 +65,11 @@ server.get('/', (req, res) => {
 })
 
 server.post('/new-order', (req, res) => {
-  console.log(req.body, 'data from webhook call')
+  // console.log(req.body, 'data from webhook call')
+
+  let { total_paid } = req.body.payload
+
+  console.log(total_paid, 'total paid object')
 
   // axios.post("https://hooks.slack.com/services/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", req.body)
   //   .then(res2 => {
